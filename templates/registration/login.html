@@ -1,0 +1,29 @@
+{% extends  'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container">
+        <div style="display: flex; justify-content: center;">
+
+            <div class="card mt-5 mb-5" style="width: 450px;border: 3px solid coral">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Авторизация</h4>
+                    <hr>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+
+                        <button type="submit" class="btn btn-outline" style="float: right;border:1px solid coral">
+                            Войти
+                        </button>
+                    </form>
+                    <div class="text-center mt-5">
+                        <a href="{% url 'accounts:signup' %}">Нет аккаунта? Зарегистрироваться</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

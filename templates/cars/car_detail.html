@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}{{ title }}{% endblock %}
+
+
+
+{% block main %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <figure class="figure">
+                    <img src="{{ car.img.url }}" class="figure-img img-fluid rounded" alt="...">
+                    <div class="buttons mx-2 my-2">
+                        <a href="{% url 'cars:car_reviews' car.brand.slug car.slug  %}">
+                            <button type="button" class="btn btn-outline-primary">Отзывы</button></a>
+
+                        <a href="#"><button type="button" class="btn btn-outline-danger">В корзину</button></a>
+
+                             <a href="">
+                            <i class="fa-regular fa-thumbs-up fa-xl" style="color: coral"> {{ car.likes }}</i>
+                        </a>
+
+
+                    </div>
+                </figure>
+            </div>
+
+            <div class="col-md-8">
+
+                <ol class="list-group list-group-numbered " style="width: 520px">
+
+
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="border:1px coral solid">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Бренд</div>
+                        </div>
+
+                         <span class="badge bg-danger rounded-pill">{{ car.brand }}</span>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="border:1px coral solid">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Модель</div>
+                        </div>
+                         <span class="badge bg-danger rounded-pill">{{ car.model }}</span>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="border:1px coral solid">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Состояние</div>
+                        </div>
+                         <span class="badge bg-danger rounded-pill">{{ car.condition }}</span>
+                    </li>
+
+                    {% if car.condition_id == 2 %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start"
+                            style="border:1px coral solid">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Пробег</div>
+                            </div>
+                            <span class="badge bg-danger rounded-pill">{{ car.mileage }} км</span>
+                        </li>
+                    {% endif %}
+
+
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="border:1px coral solid">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Год выпуска</div>
+                        </div>
+                        <span class="badge bg-danger rounded-pill">{{ car.year }}</span>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="border:1px coral solid">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Стоимость</div>
+                        </div>
+                        <span class="badge bg-danger rounded-pill">{{ car.price }} руб.</span>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="border:1px coral solid">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Коробка передач</div>
+                        </div>
+                        <span class="badge bg-danger rounded-pill">{{ car.get_transmission_display }}</span>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="border:1px coral solid">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Л.С.</div>
+                        </div>
+                        <span class="badge bg-danger rounded-pill">{{ car.hp }}</span>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="border:1px coral solid">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Цвет</div>
+                        </div>
+                        <span class="badge bg-danger rounded-pill">{{ car.get_color_display }}</span>
+                    </li>
+                   <li class="list-group-item d-flex justify-content-between align-items-start" style="border:1px coral solid">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Привод</div>
+                        </div>
+                        <span class="badge bg-danger rounded-pill">{{ car.get_drive_unit_display }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="border:1px coral solid">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Количество</div>
+                        </div>
+                        <span class="badge bg-danger rounded-pill">{{ car.quantity }}</span>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-5">
+        <div class="row">
+            {% for img in car.all_images.all %}
+
+                <div class="col-md-2">
+                    <img src="{{ img.url }}" alt="">
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

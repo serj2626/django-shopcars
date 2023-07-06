@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block style %}{% endblock %}
+</head>
+<body>
+
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg  bg-body-tertiary">
+        <div class="container-fluid ">
+            <a class="navbar-brand" href="{% url 'cars:home' %}">
+                <img src="{% static 'cars/img/carcarcar2.png' %}" width="100px" height="60px" alt="">
+                <span style="color: coral">Shop</span><span style="color: gold">Cars</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse d-flex flex-row-reverse mr-2" id="navbarNavDropdown">
+                <ul class="navbar-nav" style="margin-right: 90px">
+
+                    <li class="nav-item dropdown">
+                        <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
+                            Категории
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'cars:new_cars' %}">Новые</a></li>
+                            <li><a class="dropdown-item" href="{% url 'cars:used_cars' %}">С пробегом</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+{#                            <i class="fa-sharp fa-regular fa-envelope fa-lg" style="color: black"></i>#}
+                            Обратная связь
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item dropdown">
+                        {% if request.user.is_authenticated %}
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Профиль
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="fa-regular fa-user" style="color: coral"></i>
+                                    Личный кабинет
+                                </a>
+                                </li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa-sharp fa-solid fa-envelope" style="color: coral"></i>
+                                    Уведомления
+                                </a>
+                            </li>
+
+                            <li><a class="dropdown-item" href="#">
+                                <i class="fa-sharp fa-solid fa-basket-shopping" style="color: coral"></i>
+                                Корзина
+                            </a>
+                            </li>
+                            <hr>
+                            <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">
+                                <i style="color: coral" class="fa-solid fa-right-from-bracket fa-rotate-90"></i>
+                                Выход
+                            </a></li>
+                            </ul>
+                        {% else %}
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Вход | Регистрация
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'accounts:signup' %}">
+                                    <i style="color:coral;" class="fa-solid fa-user-plus"></i>
+                                    Регистрация</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{% url 'accounts:login' %}">
+                                    <i style="color:coral;" class="fa-solid fa-right-to-bracket"></i>
+                                    Вход
+                                </a>
+                                </li>
+                            </ul>
+                        {% endif %}
+                </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+{% block banner %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+
+
+{% block main %}
+{% endblock %}
+
+
+
+<footer>
+
+    <div class="alert alert-light mb-0 mt-5" role="alert" style="background-color: coral; height: 60px">
+        <div class="icon-footer d-flex justify-content-center mb-0">
+            <div class="icon-item mx-5 ">
+                <a href="" title="Telegram"><i class="fa-brands fa-2xl fa-telegram" style="color: #ffffff"></i></a>
+            </div>
+            <div class="icon-item mx-5">
+                <a href="" title="Вконтакте"><i class="fa-brands fa-2xl fa-vk" style="color:#ffffff"></i></a>
+            </div>
+            <div class="icon-item mx-5">
+                <a href="" title="Github"><i class="fa-brands fa-2xl fa-github" style="color: #ffffff"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

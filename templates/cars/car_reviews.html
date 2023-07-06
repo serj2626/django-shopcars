@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Отзывы {{ car.model }}{% endblock %}
+
+
+
+{% block main %}
+    <div class="container mt-5">
+    {% for rev in car.models_reviews.all %}
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseOne">
+                            {{ rev.user.username }}
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            {{ rev.text }}
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

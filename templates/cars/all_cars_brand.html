@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+
+{% block main %}
+
+    <div class="container mt-5">
+        <div class="text-center text-dark mt-3 mb-4"><h2>Наши Автомобили</h2></div>
+        <div class="row">
+             {% for car in brand.all_cars.all %}
+
+                {% if car.img %}
+                    <div class="col-md-4">
+                        <div class="card my-4"  style="height: 20rem; width: 22rem; border:2px solid coral">
+                            <div style="border:1px solid coral">
+                                <a href="{% url 'cars:car_detail' car.brand.slug car.slug %}"> <img src="{{ car.img.url }}" class="card-img-top" alt="..."></a>
+
+                            </div>
+
+                            <div class="card-body">
+                                <p class="card-text text-center text-dark"><img style="height: 30px;width: 30px; float: left" src="{{ car.brand.image.url }}">
+                                     {{ car }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

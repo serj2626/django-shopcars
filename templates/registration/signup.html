@@ -1,0 +1,29 @@
+{% extends  'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container mt-2 my-5">
+        <div style="display: flex; justify-content: center;">
+            <div class="card mt-5" style="width: 550px;border: 3px solid coral">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Регистрация</h4>
+                    <hr>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="next">
+
+                        {{ form|crispy }}
+
+                        <button type="submit" class="btn btn-outline" style="float: right;border:1px solid coral">
+                            Зарегистрироваться
+                        </button>
+                    </form>
+                    <div class="text-center mt-5">
+                        <a href="{% url 'accounts:login' %}">Есть аккаунт? Войти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
