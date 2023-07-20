@@ -1,5 +1,7 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class Condition(models.Model):
@@ -29,6 +31,7 @@ class Brand(models.Model):
 
 
 class Car(models.Model):
+
     COLORS = [
         ('Red', ' Красный'),
         ('White', ' Белый'),
@@ -79,26 +82,38 @@ class Car(models.Model):
     country = models.CharField(max_length=100, verbose_name='страна производства', choices=COUNTRY, default='China')
     transmission = models.CharField(max_length=100, verbose_name='коробка передач', choices=TRANSMISSION,
                                     default='Automatic')
-
+    ad_number = models.IntegerField(verbose_name='номер объявления', unique=True, default=None)
     likes = models.IntegerField(verbose_name='кол-во лайков', default=0)
+    stock = models.BooleanField(verbose_name='наличие', default=True)
     slug = models.SlugField(unique=True)
-
-    def __str__(self):
-        return f'{self.brand} {self.model} {self.year} года'
 
     class Meta:
         verbose_name = 'Машина'
         verbose_name_plural = 'Машины'
 
+    def get_absolute_url(self):
+        return reverse('cars:car_detail', kwargs={'cars_brand': self.brand.slug, 'model_name': self.slug, 'number': self.ad_number})
+
+    def __str__(self):
+        return f'{self.brand} {self.model} {self.year} года'
+
+    def clean(self):
+        if 0 > self.likes:
+            raise ValidationError('Кол-во лайков не может быть отрицательнм')
+
+    def save(self, *args, **kwargs):
+        self.clean()
+
+        if self.quantity > 0:
+            self.stock = True
+        else:
+            self.stock = False
+        super().save(*args, **kwargs)
+
 
 class CarImage(models.Model):
     model = models.ForeignKey(Car, on_delete=models.CASCADE, verbose_name='модель', related_name='all_images')
-    photo1 = models.ImageField(verbose_name='Фото1', upload_to='media/cars/', blank=True)
-    photo2 = models.ImageField(verbose_name='Фото2', upload_to='media/cars/', blank=True)
-    photo3 = models.ImageField(verbose_name='Фото3', upload_to='media/cars/', blank=True)
-    photo4 = models.ImageField(verbose_name='Фото4', upload_to='media/cars/', blank=True)
-    photo5 = models.ImageField(verbose_name='Фото5', upload_to='media/cars/', blank=True)
-    photo6 = models.ImageField(verbose_name='Фото6', upload_to='media/cars/', blank=True)
+    image = models.ImageField(verbose_name='Картинка', upload_to='cars/', blank=True)
 
     class Meta:
         verbose_name = 'Изображение'

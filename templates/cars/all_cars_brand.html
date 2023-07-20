@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}{{ title }}{% endblock %}
 
 
@@ -15,7 +15,7 @@
                     <div class="col-md-4">
                         <div class="card my-4"  style="height: 20rem; width: 22rem; border:2px solid coral">
                             <div style="border:1px solid coral">
-                                <a href="{% url 'cars:car_detail' car.brand.slug car.slug %}"> <img src="{{ car.img.url }}" class="card-img-top" alt="..."></a>
+                                <a href="{{ car.get_absolute_url }}"> <img src="{{ car.img.url }}" class="card-img-top" alt="..."></a>
 
                             </div>
 

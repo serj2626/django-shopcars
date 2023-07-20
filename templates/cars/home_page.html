@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block style %}
-    <link rel="stylesheet" href="{% static 'cars/css/home_page.css' %}">
+    <link rel="stylesheet" href="{% static 'cars/css/paginat.css' %}">
 {% endblock %}
 
 {% load  brand_tags %}
@@ -11,7 +11,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block banner %}
-{% include 'include/banner.html' %}
+    {% include 'include/banner.html' %}
 {% endblock %}
 
 
@@ -24,7 +24,9 @@
             {% for brand in brands %}
                 <div class="col-md-2 mt-2">
                     <div class="my-2 mx-2">
-                        <a href="{% url 'cars:all_cars_brand' brand.slug %}"><img src="{{ brand.image.url }}" title="{{ brand.title }}" alt="" width="75px" height="65px"></a>
+                        <a href="{% url 'cars:all_cars_brand' brand.slug %}"><img src="{{ brand.image.url }}"
+                                                                                  title="{{ brand.title }}" alt=""
+                                                                                  width="75px" height="65px"></a>
 
                     </div>
                 </div>
@@ -43,15 +45,21 @@
             {% for car in page_obj %}
                 {% if car.img %}
                     <div class="col-md-4">
-                        <div class="card my-4"  style="height: 20rem; width: 22rem; border:2px solid coral">
+                        <div class="card my-4" style="height: 20rem; width: 22rem; border:2px solid coral">
                             <div style="border:1px solid coral">
-                                <a href="{% url 'cars:car_detail' car.brand.slug car.slug %}"><img src="{{ car.img.url }}" class="card-img-top" alt="..."></a>
-
+                                <a href="{{ car.get_absolute_url }}">
+                                    <img src="{{ car.img.url }}" class="card-img-top" alt="...">
+                                </a>
                             </div>
 
                             <div class="card-body">
-                                <p class="card-text text-center text-dark"><img style="height: 30px;width: 30px; float: left" src="{{ car.brand.image.url }}">
-                                     {{ car }}</p>
+                                <div class="">
+                                    <p class="card-text text-center text-dark"><img
+                                            style="height: 30px;width: 30px; float: left"
+                                            src="{{ car.brand.image.url }}">
+                                        {{ car }}</p>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -60,30 +68,30 @@
         </div>
     </div>
 
-<nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item">
-        {% if page_obj.has_previous %}
-            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            </a>
-        {% endif %}
-    </li>
-    {% for page in page_obj.paginator.page_range %}
-        <li class="page-item {% if page == page_obj.number %} active {% endif %} ">
-            <a class="page-link" href="?page={{page}}">
-                {{ page }}
-            </a>
-        </li>
-    {% endfor %}
-    <li class="page-item">
-        {% if page_obj.has_next %}
-      <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-        {% endif %}
-    </li>
-  </ul>
-</nav>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                {% if page_obj.has_previous %}
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                {% endif %}
+            </li>
+            {% for page in page_obj.paginator.page_range %}
+                <li class="page-item {% if page == page_obj.number %} active {% endif %} ">
+                    <a class="page-link" href="?page={{ page }}">
+                        {{ page }}
+                    </a>
+                </li>
+            {% endfor %}
+            <li class="page-item">
+                {% if page_obj.has_next %}
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
 
 {% endblock %}

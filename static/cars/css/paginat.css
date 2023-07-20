@@ -5,7 +5,7 @@
 .pagination {
     height: 36px;
     margin: 18px 0;
-    color: #6c58bF;
+    /*color: #6c58bF;*/
 }
 
 .pagination ul {
@@ -33,7 +33,7 @@
     float: left;
     padding: 0 14px;
     line-height: 34px;
-    color: #6c58bF;
+    color: #e30d3f;
     text-decoration: none;
     border: 1px solid #ddd;
     border-left-width: 0;
@@ -41,12 +41,12 @@
 
 .pagination a:hover,
 .pagination .active a {
-    background-color: #6c58bF;
+    background-color: coral;
     color: #ffffff;
 }
 
 .pagination a:focus {
-    background-color: #6c58bF;
+    background-color: #141415;
     color: #ffffff;
 }
 
@@ -77,10 +77,10 @@
     border-radius: 0 3px 3px 0;
 }
 
-.pagination-centered {
-    text-align: center;
-}
+/*.pagination-centered {*/
+/*    text-align: center;*/
+/*}*/
 
-.pagination-right {
-    text-align: right;
-}
+/*.pagination-right {*/
+/*    text-align: right;*/
+/*}*/

@@ -151,3 +151,14 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGIN_REDIRECT_URL = 'cars:home'
 LOGOUT_REDIRECT_URL = 'cars:home'
+
+
+# Email
+# https://docs.djangoproject.com/en/3.1/topics/email/#module-django.core.mail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'Ваша почта'
+EMAIL_HOST_PASSWORD = 'Пароль который вы только тчо получили'
+# End email__________________________________________________________________

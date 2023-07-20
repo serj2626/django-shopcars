@@ -1,7 +1,8 @@
 from django.contrib.auth import views
+from django.contrib.auth.decorators import login_required
 from django.urls import path
 
-from .views import SignUP
+from .views import SignUP, UserProfileView
 
 app_name = 'accounts'
 
@@ -15,4 +16,5 @@ urlpatterns = [
     path('password-change/', views.PasswordChangeView.as_view(), name='password_change'),
     path('password-change/done/', views.PasswordChangeDoneView.as_view(), name='password_change_done'),
     path('signup/', SignUP.as_view(), name='signup'),
+    path('profile/<int:pk>/', login_required(UserProfileView.as_view()), name='profile'),
 ]

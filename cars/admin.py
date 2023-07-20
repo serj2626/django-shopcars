@@ -16,9 +16,21 @@ class BrandAdmin(admin.ModelAdmin):
 
 @admin.register(Car)
 class CarAdmin(admin.ModelAdmin):
-    list_display = ('brand', 'model', 'condition', 'year', 'price', 'color', 'drive_unit', 'hp', 'quantity')
-    ordering = ('year',)
+    list_display = (
+        'brand', 'model', 'condition', 'year', 'price', 'color', 'hp', 'quantity', 'ad_number', 'stock')
+    ordering = ('brand',)
     prepopulated_fields = {'slug': ('model',)}
+    list_editable = ('year', 'price', 'hp', 'quantity', 'color', 'ad_number')
+    list_per_page = 10
+    actions = ('set_stock', 'set_no_stock')
+
+    @admin.action(description='Установить статус - авто в наличии')
+    def set_stock(self, request, queryset):
+        queryset.update(stock=True)
+
+    @admin.action(description='Установить статус - авто не в наличии')
+    def set_no_stock(self, request, queryset):
+        queryset.update(stock=False)
 
 
 admin.site.register(CarImage)

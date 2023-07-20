@@ -8,9 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'cars/css/button-top.css' %}">
     {% block style %}{% endblock %}
 </head>
-<body>
+
+<body id="home" style="background-color: #fafafa">
 
 <div class="container-fluid">
     <nav class="navbar navbar-expand-lg  bg-body-tertiary">
@@ -34,13 +36,13 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'cars:new_cars' %}">Новые</a></li>
                             <li><a class="dropdown-item" href="{% url 'cars:used_cars' %}">С пробегом</a></li>
+                            <li><a class="dropdown-item" href="#">Акции</a></li>
                         </ul>
                     </li>
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-{#                            <i class="fa-sharp fa-regular fa-envelope fa-lg" style="color: black"></i>#}
+                        <a class="nav-link" href="{% url 'cars:contact' %}">
                             Обратная связь
                         </a>
                     </li>
@@ -53,27 +55,28 @@
                                 Профиль
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">
-                                    <i class="fa-regular fa-user" style="color: coral"></i>
-                                    Личный кабинет
+                                <li><a class="dropdown-item" href="{% url 'accounts:profile' request.user.id %}">
+                                    <i class="fa-solid fa-user" style="color: coral"></i> Личный кабинет
+
                                 </a>
                                 </li>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fa-sharp fa-solid fa-envelope" style="color: coral"></i>
-                                    Уведомления
-                                </a>
-                            </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fa-sharp fa-solid fa-envelope" style="color: coral"></i> Уведомления
 
-                            <li><a class="dropdown-item" href="#">
-                                <i class="fa-sharp fa-solid fa-basket-shopping" style="color: coral"></i>
-                                Корзина
-                            </a>
-                            </li>
-                            <hr>
-                            <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">
-                                <i style="color: coral" class="fa-solid fa-right-from-bracket fa-rotate-90"></i>
-                                Выход
-                            </a></li>
+                                    </a>
+                                </li>
+
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="fa-sharp fa-solid fa-basket-shopping" style="color: coral"></i> Корзина
+
+                                </a>
+                                </li>
+                                <hr>
+                                <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">
+                                    <i class="fa-solid fa-right-from-bracket" style="color: coral"></i> Выход
+
+                                </a></li>
                             </ul>
                         {% else %}
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -92,14 +95,24 @@
                                 </li>
                             </ul>
                         {% endif %}
-                </li>
-
-
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 </div>
+
+<div class="container">
+    {% if messages %}
+        {% for mes in messages %}
+            <div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+                {{ mes }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
 
 {% block banner %}
 {% endblock %}
@@ -114,18 +127,53 @@
 
 
 
-<footer>
 
-    <div class="alert alert-light mb-0 mt-5" role="alert" style="background-color: coral; height: 60px">
-        <div class="icon-footer d-flex justify-content-center mb-0">
-            <div class="icon-item mx-5 ">
-                <a href="" title="Telegram"><i class="fa-brands fa-2xl fa-telegram" style="color: #ffffff"></i></a>
+
+
+<footer class="pt-2  pt-md-5 border-top mt-5" style="background-color: coral">
+    <div class="container">
+
+
+        <div class="row">
+
+            <div class="col-6 col-md">
+                <div class="icon-item mx-5">
+                    <a href="" title="Вконтакте"><i class="fa-brands fa-2xl fa-vk fa-beat-fade" style="color:#ffffff"></i></a>
+                </div>
             </div>
-            <div class="icon-item mx-5">
-                <a href="" title="Вконтакте"><i class="fa-brands fa-2xl fa-vk" style="color:#ffffff"></i></a>
+
+            <div class="col-6 col-md">
+                <div class="icon-item mx-5">
+                    <a href="" title="Github"><i class="fa-brands fa-2xl fa-github fa-beat-fade" style="color: #ffffff"></i></a>
+                </div>
             </div>
-            <div class="icon-item mx-5">
-                <a href="" title="Github"><i class="fa-brands fa-2xl fa-github" style="color: #ffffff"></i></a>
+
+            <div class="col-6 col-md">
+                <div class="icon-item mx-5 ">
+                    <a href="" title="Telegram"><i class="fa-brands fa-2xl fa-telegram fa-beat-fade" style="color: #ffffff"></i></a>
+                </div>
+            </div>
+
+
+            <div class="col-6 col-md">
+                <div class="icon-item mx-5 ">
+                </div>
+                <a href="#home" class="move-top text-right col-md-2">
+                    <i class="fa-solid fa-arrow-up fa-beat-fade fa-2xl" style="color: white;"></i></a>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-4">
+            </div>
+
+
+            <div class="col-md-4">
+                <p class="col-md-10 text-center text-light">© 2023 Shop Cars | Design by
+                    <a href="https://github.com/serj2626" target="_blank"><br> Boytsov Sergey</a>
+                </p>
+            </div>
+            <div class="col-md-4">
             </div>
         </div>
     </div>

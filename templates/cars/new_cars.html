@@ -3,16 +3,16 @@
 {% load static %}
 
 {% block style %}
-    <link rel="stylesheet" href="{% static 'cars/css/home_page.css' %}">
+    <link rel="stylesheet" href="{% static 'cars/css/paginat.css' %}">
 {% endblock %}
 
 {% load  brand_tags %}
 
 {% block title %}{{ title }}{% endblock %}
 
-{#{% block banner %}#}
-{#{% include 'include/banner.html' %}#}
-{#{% endblock %}#}
+{% block banner %}
+{% include 'include/banner_new_cars.html' %}
+{% endblock %}
 
 
 
